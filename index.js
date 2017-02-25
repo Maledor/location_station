@@ -1,6 +1,18 @@
 var express = require('express');
 var server = express();
 var port = process.env.port || 8080;
+var axios = require('axios');
+
+server.get('/posts/:postId', function(request, response){
+  var url = `https://jsonplaceholder.typicode.com/`;
+  axios.get(url)
+    .then(function(results){
+      response.send(results.data);
+    })
+    .catch(function(err){
+      response.send(err);
+    });
+});
 
 server.listen(port, function(){
   console.log('Now listening on port...', port);
